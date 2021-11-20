@@ -1,0 +1,9 @@
+.vscode
+.idea
+.DS_Store
+db.sqlite3
+__pycache__
+backend/media
+backend/static
+backend/_secrets.json
+.python-version

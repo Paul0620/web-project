@@ -1,0 +1,4 @@
+-r base.txt
+
+guniconrn
+mysqlclient 같은 필요한 것들이 들어갈 수 있음

@@ -1,0 +1,6 @@
+django-admin~=3.2.9
+djangorestframework
+djangorestframework-jwt
+django-cors-headers
+django-pydenticon
+pillow
