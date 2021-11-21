@@ -1,0 +1,17 @@
+.postlist {
+  .post {
+    .ant-card {
+      .ant-card-cover {
+        .swiper-container {
+          .swiper-wrapper {
+            align-items: center;
+          }
+          .swiper-button-next,
+          .swiper-button-prev {
+            color: white;
+          }
+        }
+      }
+    }
+  }
+}
