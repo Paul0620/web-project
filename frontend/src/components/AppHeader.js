@@ -1,22 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { Input, Menu } from "antd";
+import { HomeOutlined, LogoutOutlined } from "@ant-design/icons";
 
 function AppHeader() {
   return (
     <div className="header">
       <div>
-        <a href="#" className="page-title">
+        <Link to="/" className="page-title">
           Diary
-        </a>
+        </Link>
       </div>
       <div className="search">
         <Input.Search placeholder="검색" />
       </div>
       <div className="topnav">
         <Menu mode="horizontal">
-          <Menu.Item>메뉴1</Menu.Item>
-          <Menu.Item>메뉴2</Menu.Item>
-          <Menu.Item>메뉴3</Menu.Item>
+          <Menu.Item key="1">
+            <HomeOutlined style={{ fontSize: "20px" }} />
+          </Menu.Item>
+          <Menu.Item key="2">
+            <LogoutOutlined style={{ fontSize: "20px" }} />
+          </Menu.Item>
         </Menu>
       </div>
     </div>

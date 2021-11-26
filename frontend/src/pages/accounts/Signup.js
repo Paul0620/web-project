@@ -2,68 +2,45 @@ import React, { useState } from "react";
 import Axios from "axios";
 import { Card, Form, Input, Button, notification } from "antd";
 import { SmileOutlined, FrownOutlined } from "@ant-design/icons";
-import { Link, useHistory, useLocation } from "react-router-dom";
-import { useAppContext, setToken } from "store";
+import { useHistory } from "react-router-dom";
 
-function Login() {
-  // AppContext에서 토큰값을 가져옴
-  const { dispatch } = useAppContext();
-
-  const location = useLocation();
-
+function Signup() {
   // 페이지 이동을 위한 useHistory
   const history = useHistory();
-
   // 에러를 받기 위한 상태값 만들기
   const [fieldErrors, setFieldErrors] = useState({});
-
-  // 로그인 상태가 아닐때 이동할 페이지 설정
-  const { from: loginRedirectUrl } = location.state || {
-    from: { pathname: "/" },
-  };
 
   // 작성 후 값을 서버로 보내기 처리
   const onFinish = (values) => {
     // async, await를 이용하여 비동기 처리
     async function fn() {
       // 입력받은 값들을 각각 변수명에 담음
-      const { username, password } = values;
+      const { username, password, nickname } = values;
 
       // 초기화
       setFieldErrors({});
 
       // data 변수에 입력받은 값들을 담음
-      const data = { username, password };
+      const data = { username, password, nickname };
 
       // 정상적으로 받는지 에러가 있는지 확인
       try {
-        // Axios를 이용하여 서버에 전달하여 정상적으로 받았다면
-        const response = await Axios.post(
-          "http://localhost:8000/accounts/token/",
-          data
-        );
-
-        // token을 받기
-        const {
-          data: { token: jwtToken },
-        } = response;
-
-        dispatch(setToken(jwtToken));
-        // setJwtToken(jwtToken);
+        // Axios를 이용하여 서버에 전달
+        await Axios.post("http://localhost:8000/accounts/signup/", data);
 
         notification.open({
-          message: "로그인 성공!",
-          description: `환영합니다 ${username}님!`,
+          message: "회원가입 성공!",
+          description: "로그인 페이지로 이동합니다.",
           icon: <SmileOutlined style={{ color: "#108ee9" }} />,
         });
 
-        history.push(loginRedirectUrl);
+        history.push("/accounts/login");
       } catch (error) {
         // 에러가 있다면
         if (error.response) {
           notification.open({
-            message: "로그인 실패",
-            description: "아이디/비밀번호을 확인해주세요.",
+            message: "회원가입 실패",
+            description: "아이디/비밀번호/닉네임을 확인해주세요.",
             icon: <FrownOutlined style={{ color: "#ff3333" }} />,
           });
 
@@ -90,8 +67,9 @@ function Login() {
     }
     fn();
   };
+
   return (
-    <Card title="로그인" className="login">
+    <Card title="회원가입" className="signup">
       <Form
         name="basic"
         labelCol={{ span: 5 }}
@@ -109,7 +87,6 @@ function Login() {
           ]}
           hasFeedback
           {...fieldErrors.username}
-          {...fieldErrors.non_field_errors}
         >
           <Input />
         </Form.Item>
@@ -127,16 +104,22 @@ function Login() {
           <Input.Password />
         </Form.Item>
 
+        <Form.Item
+          label="닉네임"
+          name="nickname"
+          rules={[
+            { required: true, message: "닉네임을 입력해주세요" },
+            { max: 10, message: "10글자 이하로 입력해주세요." },
+          ]}
+          hasFeedback
+          {...fieldErrors.nickname}
+        >
+          <Input />
+        </Form.Item>
+
         <Form.Item wrapperCol={{ offset: 5, span: 16 }}>
-          <Button
-            type="primary"
-            htmlType="submit"
-            style={{ marginRight: "10px" }}
-          >
-            로그인
-          </Button>
           <Button type="primary" htmlType="submit">
-            <Link to="/accounts/signup">회원가입</Link>
+            회원가입
           </Button>
         </Form.Item>
       </Form>
@@ -144,4 +127,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Signup;

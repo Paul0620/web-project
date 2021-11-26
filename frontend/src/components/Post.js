@@ -27,8 +27,8 @@ function Post({ post }) {
           // 게시물 이미지
           <Swiper navigation>
             {/* 다중이미지를 map함수를 이용하여 불러옴 */}
-            {images.map((image) => (
-              <SwiperSlide>
+            {images.map((image, index) => (
+              <SwiperSlide key={index}>
                 <Image key={image.id} image={image} />
               </SwiperSlide>
             ))}

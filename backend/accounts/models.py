@@ -20,6 +20,7 @@ class User(AbstractUser):
         help_text="48px * 48px 크기의 png/jpg 파일을 업로드해주세요.",
     )
 
+    # 설정한 아바타 이미지가 없다면 pydenticon을 이용하여 임의의 이미지를 설정
     @property
     def avatar_url(self):
         if self.avatar:

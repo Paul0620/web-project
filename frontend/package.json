@@ -3,18 +3,21 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ant-design/icons": "^4.6.3",
     "@testing-library/jest-dom": "^5.15.0",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "antd": "^4.16.13",
     "axios": "^0.24.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "axios-hooks": "^3.0.0",
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0",
     "react-multi-carousel": "^2.6.5",
     "react-router-dom": "^5.3.0",
     "react-scripts": "4.0.3",
     "sass": "^1.43.4",
     "swiper": "^6.8.4",
+    "use-reducer-with-side-effects": "^2.2.0",
     "web-vitals": "^1.1.2"
   },
   "scripts": {

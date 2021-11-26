@@ -21,3 +21,10 @@ class SignupSerializer(serializers.ModelSerializer):
         user.set_password(validated_data["password"])
         user.save()
         return user
+
+
+# 회원리스트
+class SuggestionUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ["nickname", "avatar_url"]

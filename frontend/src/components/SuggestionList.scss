@@ -5,12 +5,13 @@
     display: grid;
     grid-template-columns: 32px 2fr 1fr;
     align-items: center;
-    margin-bottom: 0.5em;
+    margin-bottom: 0.7em;
 
     .avatar {
       justify-self: center;
+      margin-right: 0.8em;
     }
-    .username {
+    .nickname {
     }
     .action {
       justify-self: right;

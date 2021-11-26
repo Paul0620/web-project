@@ -129,13 +129,13 @@ REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [  # 기본값이 AllowAny인데 인증이 필요하다고 설정
         "rest_framework.permissions.IsAuthenticated",
     ],
-    "DEFAULT_AUTHENTICATION_CLASSES": (
+    "DEFAULT_AUTHENTICATION_CLASSES": (  # restframework jwt 사용시 설정
         "rest_framework_jwt.authentication.JSONWebTokenAuthentication",
         "rest_framework.authentication.SessionAuthentication",
     ),
 }
 
-# 토큰 리프래쉬 허용
+# 토큰 리프래쉬 허용하기위한 설정
 JWT_AUTH = {
     "JWT_SECRET_KEY": SECRET_KEY,
     "JWT_ALGORITHM": "HS256",

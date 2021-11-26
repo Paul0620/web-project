@@ -1,16 +1,29 @@
 import React from "react";
-import { UserOutlined } from "@ant-design/icons";
-import { Button } from "antd";
+import { Avatar, Button } from "antd";
 
-function Suggestion() {
+function Suggestion({ suggestionUser, onFollowUser }) {
+  const { nickname, avatar_url, is_follow } = suggestionUser;
   return (
     <div className="suggestion">
       <div className="avatar">
-        <UserOutlined />
+        <Avatar
+          size="small"
+          icon={
+            <img
+              src={"http://localhost:8000" + avatar_url}
+              alt={`${nickname}'s avatar`}
+            />
+          }
+        />
       </div>
-      <div className="username">Username</div>
+      <div className="nickname">{nickname}</div>
       <div className="action">
-        <Button size="small">Follow</Button>
+        {is_follow && "팔로잉 중"}
+        {!is_follow && (
+          <Button size="small" onClick={() => onFollowUser(nickname)}>
+            Follow
+          </Button>
+        )}
       </div>
     </div>
   );
