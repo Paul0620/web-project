@@ -8,12 +8,7 @@ function Suggestion({ suggestionUser, onFollowUser }) {
       <div className="avatar">
         <Avatar
           size="small"
-          icon={
-            <img
-              src={"http://localhost:8000" + avatar_url}
-              alt={`${nickname}'s avatar`}
-            />
-          }
+          icon={<img src={avatar_url} alt={`${nickname}'s avatar`} />}
         />
       </div>
       <div className="nickname">{nickname}</div>

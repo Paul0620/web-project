@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import Axios from "axios";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import { Card, Form, Input, Button, notification } from "antd";
 import { SmileOutlined, FrownOutlined } from "@ant-design/icons";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { axiosInstance } from "api";
 import { useAppContext, setToken } from "store";
+import { parseErrorMessages } from "utils/forms";
 
 function Login() {
   // AppContext에서 토큰값을 가져옴
@@ -38,10 +39,7 @@ function Login() {
       // 정상적으로 받는지 에러가 있는지 확인
       try {
         // Axios를 이용하여 서버에 전달하여 정상적으로 받았다면
-        const response = await Axios.post(
-          "http://localhost:8000/accounts/token/",
-          data
-        );
+        const response = await axiosInstance.post("/accounts/token/", data);
 
         // token을 받기
         const {
@@ -71,19 +69,21 @@ function Login() {
 
           // 에러가 발생되면 setFieldErrors안에 담음
           setFieldErrors(
+            parseErrorMessages(fieldsErrorMessages)
             // Object.entries() 메서드는 for...in와 같은 순서로 주어진 객체 자체의 enumerable 속성 [key, value] 쌍의 배열을 반환
             // reduce를 이용하여 acc에 key, value 값을 누적
-            Object.entries(fieldsErrorMessages).reduce(
-              (acc, [fieldName, errors]) => {
-                // 리스트로 넘어온 에러들을 문자열로 공백을 두어서 리턴
-                acc[fieldName] = {
-                  validateStatus: "error",
-                  help: errors.join(" "),
-                };
-                return acc;
-              },
-              {} // 초기값은 빈배열로
-            )
+            // forms.js로 옮김
+            // Object.entries(fieldsErrorMessages).reduce(
+            //   (acc, [fieldName, errors]) => {
+            //     // 리스트로 넘어온 에러들을 문자열로 공백을 두어서 리턴
+            //     acc[fieldName] = {
+            //       validateStatus: "error",
+            //       help: errors.join(" "),
+            //     };
+            //     return acc;
+            //   },
+            //   {} // 초기값은 빈배열로
+            // )
           );
         }
       }

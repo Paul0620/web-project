@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Card } from "antd";
-import Axios from "axios";
-import useAxios from "axios-hooks";
+import { axiosInstance, useAxios } from "api";
 import Suggestion from "./Suggestion";
 import "./SuggestionList.scss";
 import { useAppContext } from "store";
@@ -18,7 +17,7 @@ function SuggestionList() {
   // axios hooks를 이용하여 axios를 더 효율적이게 사용
   // 조회의 기능을 사용할 때 더 유용
   const [{ data: origUserList, loading, error }, refetch] = useAxios({
-    url: "http://127.0.0.1:8000/accounts/suggestions/",
+    url: "/accounts/suggestions/",
     headers,
   });
 
@@ -26,7 +25,8 @@ function SuggestionList() {
   const onFollowUser = (nickname) => {
     const data = { nickname };
     const config = { headers };
-    Axios.post("http://127.0.0.1:8000/accounts/follow/", data, config)
+    axiosInstance
+      .post("/accounts/follow/", data, config)
       .then((response) => {
         setUserList((prevUserList) => {
           return prevUserList.map((user) =>
@@ -76,7 +76,7 @@ function SuggestionList() {
           />
         ))}
         {loading && <div>Loading...</div>}
-        {error && <div>로딩중에 에러가 발생했습니다.</div>}
+        {error && <div>...</div>}
       </Card>
     </div>
   );
