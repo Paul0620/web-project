@@ -26,8 +26,11 @@ function Post({ post, handleLike }) {
   const history = useHistory();
 
   // 게시물 수정
-  const updateClick = () => {
-    history.push("/posts/update");
+  const updateClick = ({ post }) => {
+    history.push({
+      pathname: "/posts/update",
+      state: post,
+    });
   };
 
   // 게시물 삭제
@@ -35,7 +38,7 @@ function Post({ post, handleLike }) {
     const headers = { Authorization: `JWT ${jwtToken}` };
 
     try {
-      const response = await axiosInstance.delete(`/api/posts/${id}`, {
+      const response = await axiosInstance.delete(`/api/posts/${id}/`, {
         headers,
       });
       window.location.replace("/");
@@ -48,7 +51,7 @@ function Post({ post, handleLike }) {
   const menu = (
     <Menu>
       <Menu.Item key="0">
-        <span onClick={updateClick}>게시물 수정</span>
+        <span onClick={() => updateClick({ post })}>게시물 수정</span>
       </Menu.Item>
       <Menu.Item key="1">
         <span onClick={() => deleteClick({ id })}>게시물 삭제</span>

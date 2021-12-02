@@ -5,7 +5,6 @@ import { getBase64FromFile } from "utils/base64";
 import { axiosInstance } from "api";
 import { useAppContext } from "store";
 import { parseErrorMessages } from "utils/forms";
-import { useHistory } from "react-router-dom";
 
 function PostNewForm() {
   const {

@@ -1,13 +1,14 @@
 import React from "react";
 import { Card } from "antd";
 import PostUpdateForm from "./PostUpdateForm";
+import { useAppContext } from "store";
+import { axiosInstance, useAxios } from "api";
 
-function PostUpdate({ id }) {
-  console.log(id);
+function PostUpdate({ location }) {
   return (
     <div className="postUpdate">
       <Card title="Update Diary">
-        <PostUpdateForm />
+        <PostUpdateForm props={location} />
       </Card>
     </div>
   );

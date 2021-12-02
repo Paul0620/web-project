@@ -37,7 +37,7 @@ function PostList() {
         method,
         headers,
       });
-      console.log("response : ", response);
+      //console.log("response : ", response);
 
       setPostList((prevList) => {
         return prevList.map((currentPost) =>

@@ -46,6 +46,18 @@ class PostViewSet(ModelViewSet):
         serializer.save(author=self.request.user)
         return super().perform_create(serializer)
 
+    def perform_update(self, serializer):
+        serializer.save(author=self.request.user)
+        return super().perform_update(serializer)
+
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        self.perform_destroy(instance)
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+    def perform_destroy(self, instance):
+        instance.delete()
+
     # 좋아요 기능
     @action(detail=True, methods=["POST"])  # 특정 포스트를 정하기 위해 detail=True
     def like(self, request, pk):
