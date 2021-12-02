@@ -1,16 +1,34 @@
-import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
-import { Button, Input, Menu } from "antd";
+import React from "react";
+import { Link, useHistory, useLocation } from "react-router-dom";
+import { Input, Menu } from "antd";
 import {
   HomeOutlined,
   LogoutOutlined,
   PlusSquareOutlined,
 } from "@ant-design/icons";
-import { useAppContext } from "store";
+import { useAppContext, deleteToken } from "store";
 
 function AppHeader() {
-  // 게시물 작성으로 이동
   const history = useHistory();
+
+  const location = useLocation();
+
+  const { from: loginRedirectUrl } = location.state || {
+    from: { pathname: "/" },
+  };
+
+  // 로그아웃을 위한 토큰 지우기
+  const { dispatch } = useAppContext();
+  const {
+    store: { jwtToken },
+  } = useAppContext();
+
+  const logoutHandle = () => {
+    dispatch(deleteToken(jwtToken));
+    history.push(loginRedirectUrl);
+  };
+
+  // 게시물 작성으로 이동
   const handleClick = () => {
     history.push("/posts/new");
   };
@@ -39,10 +57,12 @@ function AppHeader() {
             />
           </Menu.Item>
           <Menu.Item key="3">
-            {}
-            {/* <Link to="/accounts/login"> */}
-            <LogoutOutlined style={{ fontSize: "20px" }} />
-            {/* </Link> */}
+            {jwtToken === "" ? null : (
+              <LogoutOutlined
+                style={{ fontSize: "20px" }}
+                onClick={logoutHandle}
+              />
+            )}
           </Menu.Item>
         </Menu>
       </div>

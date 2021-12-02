@@ -18,7 +18,7 @@ class AuthorSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = get_user_model()
-        fields = ["username", "nickname", "avatar_url"]
+        fields = ["pk", "username", "nickname", "avatar_url"]
 
 
 class PostImageSerializer(serializers.ModelSerializer):

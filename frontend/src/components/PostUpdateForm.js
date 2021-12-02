@@ -2,15 +2,17 @@ import React, { useState } from "react";
 import { Button, Form, Input, Upload, Modal, notification } from "antd";
 import { FrownOutlined, PlusOutlined } from "@ant-design/icons";
 import { getBase64FromFile } from "utils/base64";
-import { axiosInstance } from "api";
+import { axiosInstance, useAxios } from "api";
 import { useAppContext } from "store";
 import { parseErrorMessages } from "utils/forms";
 import { useHistory } from "react-router-dom";
 
-function PostNewForm() {
+function PostUpdateForm() {
   const {
     store: { jwtToken },
   } = useAppContext();
+
+  const history = useHistory();
 
   const [fileList, setFileList] = useState([]);
   // 이미지 미리 보기를 위한 설정
@@ -54,7 +56,7 @@ function PostNewForm() {
       const response = await axiosInstance.post("/api/posts/", formData, {
         headers,
       });
-      console.log("success response : ", response);
+      // console.log("success response : ", response);
       window.location.replace("/");
     } catch (error) {
       if (error.response) {
@@ -115,6 +117,7 @@ function PostNewForm() {
         hasFeedback
         {...fieldErrors.caption}
         {...fieldErrors.non_field_errors}
+        // initialValue={}
       >
         <Input.TextArea />
       </Form.Item>
@@ -126,6 +129,7 @@ function PostNewForm() {
         hasFeedback
         {...fieldErrors.location}
         {...fieldErrors.non_field_errors}
+        // initialValue={}
       >
         <Input />
       </Form.Item>
@@ -136,7 +140,7 @@ function PostNewForm() {
           htmlType="submit"
           style={{ marginRight: "10px" }}
         >
-          작성
+          수정
         </Button>
       </Form.Item>
 
@@ -155,4 +159,4 @@ function PostNewForm() {
   );
 }
 
-export default PostNewForm;
+export default PostUpdateForm;

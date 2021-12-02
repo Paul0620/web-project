@@ -24,7 +24,25 @@ class SignupSerializer(serializers.ModelSerializer):
         return user
 
 
-# 회원리스트
+# 회원정보
+class UserSerializer(serializers.ModelSerializer):
+    avatar_url = serializers.SerializerMethodField("avatar_url_field")
+
+    def avatar_url_field(self, author):
+        if re.match(r"^http?://", author.avatar_url):
+            return author.avatar_url
+
+        if "request" in self.context:
+            scheme = self.context["request"].scheme  # "http" or "https"
+            host = self.context["request"].get_host()
+            return scheme + "://" + host + author.avatar_url
+
+    class Meta:
+        model = User
+        fields = ["pk", "username", "nickname", "avatar_url", "bio"]
+
+
+# 추천친구리스트
 class SuggestionUserSerializer(serializers.ModelSerializer):
     avatar_url = serializers.SerializerMethodField("avatar_url_field")
 

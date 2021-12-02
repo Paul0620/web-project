@@ -14,7 +14,7 @@ function CommentList({ post }) {
   // 조회
   const headers = { Authorization: `JWT ${jwtToken}` };
 
-  const [{ data: commentList, loading, error }, refetch] = useAxios({
+  const [{ data: commentList }, refetch] = useAxios({
     url: `/api/posts/${post.id}/comments/`,
     headers,
   });

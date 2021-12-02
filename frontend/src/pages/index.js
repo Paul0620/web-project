@@ -5,6 +5,7 @@ import Home from "./Home";
 import AccountRoutes from "./accounts";
 import AppLayout from "components/AppLayout";
 import PostNew from "components/PostNew";
+import PostUpdate from "components/PostUpdate";
 import LoginRequiredRoute from "utils/LoginRequiredRoute";
 
 function Root() {
@@ -15,6 +16,7 @@ function Root() {
       <LoginRequiredRoute exact path="/" component={Home} />
       <Route exact path="/about" component={About} />
       <LoginRequiredRoute exact path="/posts/new" component={PostNew} />
+      <LoginRequiredRoute exact path="/posts/update" component={PostUpdate} />
       <Route path="/accounts" component={AccountRoutes} />
     </AppLayout>
   );

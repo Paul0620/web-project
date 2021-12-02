@@ -68,13 +68,15 @@ function SuggestionList() {
     <div className="suggetionlist">
       {/* <button onClick={refetch}>Reload</button> 리로드 활용 */}
       <Card title="Suggestion" size="small">
-        {userList.map((suggestionUser) => (
-          <Suggestion
-            key={suggestionUser.nickname}
-            suggestionUser={suggestionUser}
-            onFollowUser={onFollowUser}
-          />
-        ))}
+        {jwtToken === ""
+          ? null
+          : userList.map((suggestionUser) => (
+              <Suggestion
+                key={suggestionUser.nickname}
+                suggestionUser={suggestionUser}
+                onFollowUser={onFollowUser}
+              />
+            ))}
         {loading && <div>Loading...</div>}
         {error && <div>...</div>}
       </Card>

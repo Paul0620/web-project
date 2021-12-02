@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, re_path
 from rest_framework_jwt.views import (
     obtain_jwt_token,
     refresh_jwt_token,
@@ -9,6 +9,7 @@ from . import views
 
 urlpatterns = [
     path("signup/", views.SignupView.as_view(), name="login"),
+    re_path(r"(?P<pk>\d+)/", views.UserView.as_view(), name="detail"),
     path("token/", obtain_jwt_token),  # 토큰을 가져오는 url
     path("token/refresh/", refresh_jwt_token),  # 접속 토큰이 만료되었을 때, 다시 발행하기 위한 용도
     path("token/verify/", verify_jwt_token),  # 토큰 검증을 이용할때 활용

@@ -3,9 +3,19 @@ from django.contrib.auth import get_user_model
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.permissions import AllowAny
-from rest_framework.generics import CreateAPIView, ListAPIView, get_object_or_404
+from rest_framework.generics import (
+    CreateAPIView,
+    ListAPIView,
+    RetrieveAPIView,
+    get_object_or_404,
+)
 from rest_framework.response import Response
-from .serializers import SignupSerializer, SuggestionUserSerializer
+from rest_framework.viewsets import ModelViewSet
+from .serializers import (
+    SignupSerializer,
+    UserSerializer,
+    SuggestionUserSerializer,
+)
 
 
 # 회원가입
@@ -15,7 +25,16 @@ class SignupView(CreateAPIView):
     permission_classes = [AllowAny]
 
 
-# 회원리스트
+# 회원정도
+class UserView(RetrieveAPIView):
+    queryset = get_user_model().objects.all()
+    serializer_class = UserSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
+
+
+# 추천친구리스트
 class SuggestionListAPIView(ListAPIView):
     queryset = get_user_model().objects.all()
     serializer_class = SuggestionUserSerializer
