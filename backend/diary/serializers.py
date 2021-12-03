@@ -1,8 +1,6 @@
 import re
 from django.contrib.auth import get_user_model
-from django.db import connections
 from rest_framework import serializers
-from rest_framework.response import Response
 from .models import Post, PostImage, Comment
 
 
@@ -49,8 +47,8 @@ class PostSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         post = Post.objects.create(**validated_data)
         # 이미지들을 for문을 통해 각각 처리
-        images_data = self.context["request"].FILES
-        for image_data in images_data.getlist("image"):
+        images_data = self.context["request"].FILES.getlist("image")
+        for image_data in images_data:
             PostImage.objects.create(post=post, image=image_data)
         return post
 
@@ -59,27 +57,10 @@ class PostSerializer(serializers.ModelSerializer):
         instance.caption = validated_data.get("caption", instance.caption)
         instance.location = validated_data.get("location", instance.location)
 
-        # images_data = self.context["request"].FILES
-        # for image_data in images_data.getlist("image"):
+        images_data = self.context["request"].FILES.getlist("image")
+        # for image_data in images_data:
         #     PostImage.objects.create(post=instance, image=image_data)
-        # return super().update(instance, validated_data)
-
-        try:
-            images_data = self.context.get("request").data.pop("images")
-        except:
-            images_data = None
-
-        if images_data is not None:
-            image_instance_list = []
-            for image_data in images_data:
-                image = PostImage.objects.create(image=image_data)
-                image_instance_list.append(image)
-
-            instance.images.set(image_instance_list)
-
-        instance.save()
-
-        return instance
+        return super().update(instance, validated_data)
 
     def is_like_field(self, post):
         if "request" in self.context:

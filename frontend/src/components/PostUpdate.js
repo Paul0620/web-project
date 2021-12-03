@@ -1,8 +1,6 @@
 import React from "react";
 import { Card } from "antd";
 import PostUpdateForm from "./PostUpdateForm";
-import { useAppContext } from "store";
-import { axiosInstance, useAxios } from "api";
 
 function PostUpdate({ location }) {
   return (

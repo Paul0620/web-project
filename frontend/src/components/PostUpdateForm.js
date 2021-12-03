@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Button, Form, Input, Upload, Modal, notification } from "antd";
 import { FrownOutlined, PlusOutlined } from "@ant-design/icons";
 import { getBase64FromFile } from "utils/base64";
-import { axiosInstance, useAxios } from "api";
+import { axiosInstance } from "api";
 import { useAppContext } from "store";
 import { parseErrorMessages } from "utils/forms";
-import { useHistory } from "react-router-dom";
 
 function PostUpdateForm({ props }) {
   const {
@@ -14,15 +13,11 @@ function PostUpdateForm({ props }) {
 
   const headers = { Authorization: `JWT ${jwtToken}` };
 
-  const history = useHistory();
-
   // 부모를 통해 게시물 정보를 가져옴
   const { id, images, caption, location } = props.state;
 
-  console.log(images);
-
+  // image를 url로 바꾸기 위한 객체 재선언
   const imageList = [];
-
   images.map((image) => {
     const nImage = {};
     nImage["id"] = image.id;
@@ -31,6 +26,7 @@ function PostUpdateForm({ props }) {
     imageList.push(nImage);
   });
 
+  // 기존 포스트에 저장되어있던 이미지를 초기값으로 담음
   const [fileList, setFileList] = useState([...imageList]);
 
   // 이미지 미리 보기를 위한 설정
