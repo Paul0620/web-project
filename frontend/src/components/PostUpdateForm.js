@@ -66,13 +66,9 @@ function PostUpdateForm({ props }) {
     formData.append("location", location);
 
     try {
-      const response = await axiosInstance.patch(
-        `/api/posts/${id}/`,
-        formData,
-        {
-          headers,
-        }
-      );
+      const response = await axiosInstance.put(`/api/posts/${id}/`, formData, {
+        headers,
+      });
       // console.log("success response : ", response);
       window.location.replace("/");
     } catch (error) {
