@@ -33,5 +33,6 @@ ___
 - Post 수정에서 이미지 수정이 제대로 이루어지지 않고 있음
 - 작성, 수정시 이미지가 중복되어 올라감
 
-<a href="https://youtu.be/aYOizgrHpHc">동작 영상</a>
+>동작영상
+<a href="https://youtu.be/aYOizgrHpHc">Click</a>
 ---
