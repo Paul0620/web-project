@@ -29,4 +29,6 @@ ___
 - Python 3.9.7
 - Django 3.2.9
 
+
+## <a href="https://youtu.be/aYOizgrHpHc">동작 영상</a>
 ---
