@@ -26,8 +26,12 @@ function PostUpdateForm({ props }) {
     imageList.push(nImage);
   });
 
+  const [fileList, setFileList] = useState([]);
+
   // 기존 포스트에 저장되어있던 이미지를 초기값으로 담음
-  const [fileList, setFileList] = useState([...imageList]);
+  React.useEffect(() => {
+    setFileList(imageList);
+  }, []);
 
   // 이미지 미리 보기를 위한 설정
   const [previewImage, setPreviewImage] = useState({

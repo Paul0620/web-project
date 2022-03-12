@@ -56,11 +56,13 @@ class PostSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         instance.caption = validated_data.get("caption", instance.caption)
         instance.location = validated_data.get("location", instance.location)
-
-        images_data = self.context["request"].FILES.getlist("image")
+        images_data = validated_data.pop("images", [])
+        # images = instance.images
+        # instance.save()
         for image_data in images_data:
-            PostImage.objects.update_or_create(post=instance, image=image_data)
-        return super().update(instance, validated_data)
+            PostImage.objects.create(post=instance, image=image_data)
+        print("dddddd", images_data, instance.caption, instance.location)
+        return super(PostSerializer, self).update(instance, validated_data)
 
     def is_like_field(self, post):
         if "request" in self.context:
