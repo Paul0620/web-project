@@ -46,6 +46,8 @@ function Login() {
           data: { token: jwtToken },
         } = response;
 
+        console.log(jwtToken, data, response);
+
         dispatch(setToken(jwtToken));
         // setJwtToken(jwtToken);
 
